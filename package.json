@@ -1,0 +1,55 @@
+{
+  "name": "dsh-plugin-keep-grouped",
+  "version": "1.0.0",
+  "private": false,
+  "description": "DeepSeek Harness 插件：工作区路径（尤其是网络路径 / UNC）在启动时暂时不可达时，让会话仍然留在原工作区分组里，而不是掉进「未分组」。",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "dsh-bundle",
+    "workspace",
+    "unc",
+    "network-drive"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yushengblog/dsh-plugin-keep-grouped.git"
+  },
+  "homepage": "https://github.com/yushengblog/dsh-plugin-keep-grouped#readme",
+  "bugs": {
+    "url": "https://github.com/yushengblog/dsh-plugin-keep-grouped/issues"
+  }
+}

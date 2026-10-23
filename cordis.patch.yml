@@ -1,0 +1,15 @@
+# ============================================================================
+# dsh-plugin-keep-grouped -- bundle patch
+#
+# Does exactly one thing: inserts this plugin's own Loader entry into the
+# configuration tree.
+#   - "id" is the entry id; users may override config for the same id in
+#     their own $DSH_HOME/profiles/<profile>/cordis.patch.yml
+#   - "name" is the package name, resolved from the profile's node_modules
+#
+# This file does NOT touch any official entry.
+# ============================================================================
+
+- insert:
+    - id: keep-grouped
+      name: dsh-plugin-keep-grouped
