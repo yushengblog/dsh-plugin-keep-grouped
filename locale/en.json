@@ -1,0 +1,5 @@
+{
+  "meta": {
+    "description": "Keeps sessions in their workspace group when the workspace path (e.g. a UNC / network path) is temporarily unreachable at startup, instead of dropping them into Ungrouped."
+  }
+}
