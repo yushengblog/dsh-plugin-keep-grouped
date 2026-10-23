@@ -92,9 +92,39 @@ pnpm add link:/path/to/dsh-plugin-keep-grouped
 
 ## 验证
 
-1. 重启 DSH，确认日志有上面那行；
-2. 断网（或拔掉网络映射）后重启 DSH，会话应当**仍然在原工作区分组**里；
-3. 恢复网络后无需重启，功能自动恢复正常。
+### 用自带的验证脚本（推荐）
+
+仓库里带了 `verify.ps1`，**路径全部自动探测**（`$env:DSH_HOME` → `~/.dsh`，profile 优先 `desktop`），换机器直接能用：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File verify.ps1
+# 或指定 profile
+powershell -NoProfile -ExecutionPolicy Bypass -File verify.ps1 -Profile desktop
+```
+
+输出会告诉你：profile 配置是否到位、插件文件是否就位、各工作区路径是否可达、会话数、`workspace.json` 是否被改写。
+
+### 手动验证步骤
+
+1. 重启 DSH，确认日志有 `[keep-grouped] 已接管 candidateMatches...`；
+2. 让工作区路径**真的不可达**（断开网络映射 / 停掉做端口转发的服务 / 断网），再重启 DSH；
+3. 检查该工作区**会话数仍然 > 0**，且 `workspace.json` 的修改时间没有变新；
+4. 恢复网络后无需重启，功能自动恢复正常。
+
+### 复现「路径不可达」的常用做法
+
+```powershell
+# 1) 断开网络映射
+net use \\server\share /delete
+
+# 2) 停掉做端口转发的服务（例如把 SMB 445 转发到远端的那种）
+Stop-Service <服务名>
+
+# 3) 断 Wi-Fi / 拔网线（注意：可能同时影响访问 DSH 本地服务）
+```
+
+确认断开成功：`Test-Path \\server\share\dir` 应为 `False`。
+
 
 ---
 
